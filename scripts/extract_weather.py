@@ -1,15 +1,19 @@
 import requests
 import os
-from config.settings import API_KEY, RAW_DATA_PATH
+from config.settings import API_URL, CITY_WOEID, RAW_DATA_PATH
+
 
 def extract_weather():
-    api_url = f"https://api.openweathermap.org/data/2.5/weather?q=London&appid={API_KEY}"
-    response = requests.get(api_url)
-    response.raise_for_status()
+    url = f"{API_URL}/{CITY_WOEID}/"
+    response = requests.get(url)
+    response.raise_for_status()  
 
     os.makedirs(RAW_DATA_PATH, exist_ok=True)
-    with open(f"{RAW_DATA_PATH}/weather.json", "w") as f:
-        f.write(response.text)
+    raw_file_path = os.path.join(RAW_DATA_PATH, "weather.json")
+    with open(raw_file_path, "w") as file:
+        file.write(response.text)
+
+    print(f"Dados extraídos e salvos em: {raw_file_path}")
 
 if __name__ == "__main__":
     extract_weather()
