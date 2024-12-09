@@ -1,64 +1,61 @@
+# Weather ETL Pipeline Project with Apache Airflow
 
----
+This project contains an ETL (Extract, Transform, Load) pipeline using **Apache Airflow** for task automation. The pipeline collects meteorological data, performs some transformations, and stores the information for subsequent analysis.
 
-# Projeto de Pipeline ETL com Apache Airflow
+## Prerequisites
 
-Este projeto contém um pipeline de ETL (Extração, Transformação e Carga) utilizando o **Apache Airflow** para automação de tarefas. O pipeline coleta dados meteorológicos e realiza algumas transformações, armazenando as informações para posterior análise.
+Before starting, ensure you have the following installed on your environment:
 
-## Pré-requisitos
+- **Python 3.x** (recommended Python 3.7 or higher)
+- **pip** (Python package manager)
+- **Git** (for cloning the repository)
+- **Apache Airflow** (for orchestrating tasks)
 
-Antes de começar, é necessário ter o seguinte instalado no seu ambiente:
+## Installation Steps
 
-- **Python 3.x** (recomendado Python 3.7 ou superior)
-- **pip** (gerenciador de pacotes do Python)
-- **Git** (para clonar o repositório)
-- **Apache Airflow** (para orquestrar as tarefas)
+### 1. Clone the Repository
 
-## Passos para Instalação
-
-### 1. **Clone o repositório**
-
-Clone o repositório do projeto para o seu ambiente local:
+Clone the project repository to your local environment:
 
 ```bash
-git clone https://github.com/seu_usuario/seu_repositorio.git
-cd seu_repositorio
+git clone https://github.com/your_username/your_repository.git
+cd your_repository
 ```
 
-### 2. **Crie um ambiente virtual (virtualenv)**
+### 2. Create a Virtual Environment (virtualenv)
 
-Recomenda-se usar um ambiente virtual para isolar as dependências do projeto. Execute o seguinte comando para criar e ativar o ambiente:
+It's recommended to use a virtual environment to isolate project dependencies. Run the following command to create and activate the environment:
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate  # No Windows, use venv\Scripts\activate
+source venv/bin/activate  # On Windows, use venv\Scripts\activate
 ```
 
-### 3. **Instale as dependências do projeto**
+### 3. Install Project Dependencies
 
-Com o ambiente virtual ativado, instale as dependências do projeto listadas no arquivo `requirements.txt`:
+With the virtual environment activated, install the project dependencies listed in the `requirements.txt` file:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Se estiver tendo problemas com a instalação do Apache Airflow, use o comando abaixo para instalar uma versão específica com as dependências adequadas para Python 3.7 (ou a versão que você está utilizando):
+If you're having trouble installing Apache Airflow, use the command below to install a specific version with appropriate dependencies for Python 3.7 (or the version you're using):
 
 ```bash
 pip install apache-airflow==2.7.0 --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.7.0/constraints-3.7.txt"
 ```
 
-### 4. **Inicialize o banco de dados do Airflow**
+### 4. Initialize Airflow Database
 
-O Airflow usa um banco de dados para armazenar o estado das tarefas e outros metadados. Para inicializar o banco de dados, execute o seguinte comando:
+Airflow uses a database to store task states and other metadata. To initialize the database, run:
 
 ```bash
 airflow db init
 ```
 
-### 5. **Crie o usuário admin do Airflow**
+### 5. Create Airflow Admin User
 
-Para acessar a interface web do Airflow, você precisa criar um usuário administrador. Execute o comando abaixo para criar um usuário com privilégios de administrador:
+To access the Airflow web interface, you need to create an administrator user. Run the following command to create a user with administrative privileges:
 
 ```bash
 airflow users create \
@@ -70,93 +67,91 @@ airflow users create \
     --password admin
 ```
 
-### 6. **Inicie o servidor web do Airflow**
+### 6. Start Airflow Webserver
 
-Agora, inicie o servidor web para acessar a interface do Airflow no navegador. O servidor será iniciado na porta `8080`:
+Now, start the web server to access the Airflow interface through your browser. The server will start on port `8080`:
 
 ```bash
 airflow webserver --port 8080
 ```
 
-Acesse a interface web através de [http://localhost:8080](http://localhost:8080).
+Access the web interface at [http://localhost:8080](http://localhost:8080).
 
-### 7. **Inicie o Scheduler do Airflow**
+### 7. Start Airflow Scheduler
 
-Em um terminal separado, inicie o scheduler do Airflow, que é responsável por executar os DAGs (grafos acíclicos dirigidos) conforme a programação:
+In a separate terminal, start the Airflow scheduler, responsible for executing DAGs according to scheduling:
 
 ```bash
 airflow scheduler
 ```
 
-### 8. **Verifique a interface do Airflow**
+### 8. Verify Airflow Interface
 
-Agora, abra o navegador e vá para a interface web do Airflow em [http://localhost:8080](http://localhost:8080). Você deve ser capaz de ver seus DAGs e monitorar a execução das tarefas.
-
----
-
-## Executando o Pipeline ETL
-
-### 1. **Definindo os DAGs**
-
-Os DAGs (Directed Acyclic Graphs) são os fluxos de trabalho definidos no Airflow. Os arquivos de definição dos DAGs estão na pasta `dags/`.
-
-### 2. **Executando manualmente um DAG**
-
-Se quiser executar manualmente um DAG, acesse a interface web do Airflow, clique no DAG desejado e, em seguida, clique no botão "Trigger DAG".
-
-### 3. **Verificando os logs**
-
-O Airflow gera logs detalhados para cada tarefa executada. Se uma tarefa falhar ou você quiser revisar a execução, basta clicar no DAG e na tarefa desejada para ver o log correspondente.
+Now, open your browser and go to the Airflow web interface at [http://localhost:8080](http://localhost:8080). You should be able to view your DAGs and monitor task execution.
 
 ---
 
-## Testando o Sistema
+## Running the ETL Pipeline
 
-Para testar o pipeline localmente, siga os passos abaixo:
+### 1. Defining DAGs
 
-1. **Execute o pipeline manualmente** clicando no botão de "Trigger" na interface web do Airflow.
-2. **Verifique os logs** de execução das tarefas para garantir que a extração, transformação e carga dos dados estejam funcionando corretamente.
-3. **Monitore o progresso** das tarefas através da interface web.
+DAGs (Directed Acyclic Graphs) are the workflows defined in Airflow. The DAG definition files are in the `dags/` directory.
+
+### 2. Manually Triggering a DAG
+
+To manually trigger a DAG, access the Airflow web interface, click on the desired DAG, and then click the "Trigger DAG" button.
+
+### 3. Checking Logs
+
+Airflow generates detailed logs for each executed task. To review logs for failed tasks or to check execution details, click on the desired DAG and task to view the corresponding log.
 
 ---
 
-## Estrutura do Projeto
+## Testing the System
+
+To test the pipeline locally, follow these steps:
+
+1. **Manually execute the pipeline** by clicking the "Trigger" button in the Airflow web interface.
+2. **Check execution logs** to ensure that data extraction, transformation, and loading are working correctly.
+3. **Monitor task progress** through the web interface.
+
+---
+
+## Project Structure
 
 ```
 weather_etl_project/
 │
 ├── dags/
-│   └── weather_etl_dag.py        # Arquivo principal com o DAG do pipeline
+│   └── weather_etl_dag.py        # Main file with the pipeline DAG
 │
 ├── scripts/
-│   ├── extract_weather.py        # Script de extração de dados
-│   ├── transform_weather.py      # Script de transformação dos dados
-│   └── load_weather.py           # Script de carga dos dados
+│   ├── extract_weather.py        # Data extraction script
+│   ├── transform_weather.py      # Data transformation script
+│   └── load_weather.py           # Data loading script
 │
 ├── config/
-│   └── settings.py               # Configurações da API e outros parâmetros
+│   └── settings.py               # API and other parameters configuration
 │
-├── requirements.txt              # Arquivo com as dependências do projeto
+├── requirements.txt              # File with project dependencies
 │
-└── README.md                    # Este arquivo
+└── README.md                    # This file
 ```
 
 ---
 
-## Contribuição
+## Contributing
 
-Se você deseja contribuir para este projeto, siga estas etapas:
+If you'd like to contribute to this project:
 
-1. Faça um fork deste repositório.
-2. Crie uma branch para a sua modificação (`git checkout -b feature/nome-da-sua-feature`).
-3. Faça as suas mudanças e commit (`git commit -am 'Adicionando uma nova feature'`).
-4. Envie para o seu fork (`git push origin feature/nome-da-sua-feature`).
-5. Abra um Pull Request.
-
----
-
-## Licença
-
-Este projeto é licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+1. Fork this repository.
+2. Create a branch for your modification (`git checkout -b feature/your-feature-name`).
+3. Make your changes and commit (`git commit -am 'Adding a new feature'`).
+4. Push to your fork (`git push origin feature/your-feature-name`).
+5. Open a Pull Request.
 
 ---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
